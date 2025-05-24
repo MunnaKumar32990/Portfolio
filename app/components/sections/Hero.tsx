@@ -56,6 +56,16 @@ const Hero = () => {
             >
               Contact Me
             </Link>
+            <a
+              href="/api/resume"
+              download="Munna_Kumar_Resume.pdf"
+              type="application/pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-green-600 text-white px-8 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium"
+            >
+              Download Resume
+            </a>
           </motion.div>
 
           <motion.div

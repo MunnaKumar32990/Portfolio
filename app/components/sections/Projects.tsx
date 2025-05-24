@@ -8,6 +8,12 @@ const projects = [
   {
     title: 'Chat App',
     description: 'A full-stack chat application built with Next.js, Node.js, and MongoDB. Features include user authentication, chat rooms, and real-time messaging.',
+    backendFeatures: [
+      'JWT authentication & session management',
+      'RESTful API with Express.js',
+      'Real-time messaging with Socket.io',
+      'MongoDB for chat and user data storage',
+    ],
     tags: ['Next.js', 'Node.js', 'MongoDB', 'Socket.io'],
     github: 'https://github.com/MunnaKumar32990/Chat-App',
     demo: 'https://chatapp-demo.vercel.app',
@@ -15,6 +21,12 @@ const projects = [
   {
     title: 'AI Resume Builder',
     description: 'A full-stack AI resume builder application built with Next.js, Node.js, and MongoDB. Features include user authentication, resume generation, and real-time messaging.',
+    backendFeatures: [
+      'User authentication & authorization',
+      'RESTful API for resume data',
+      'AI-powered resume generation (OpenAI API)',
+      'MongoDB for user and resume storage',
+    ],
     tags: ['Next.js', 'Node.js', 'MongoDB', 'Socket.io'],
     github: 'https://github.com/MunnaKumar32990/AI-Resume-Builder',
     demo: 'https://ai-resume-builder-demo.vercel.app',
@@ -22,6 +34,12 @@ const projects = [
   {
     title: 'Employee Management System',
     description: 'A full-stack employee management system built with Next.js, Node.js, and MongoDB. Features include user authentication, employee management, and real-time messaging.',
+    backendFeatures: [
+      'Role-based access control',
+      'RESTful API for employee CRUD operations',
+      'Real-time notifications with Socket.io',
+      'MongoDB for employee and user data',
+    ],
     tags: ['Next.js', 'Node.js', 'MongoDB', 'Socket.io'],
     github: 'https://github.com/MunnaKumar32990/EmployeeManagementSystem',
     demo: 'https://employee-management-system-demo.vercel.app',
@@ -112,6 +130,13 @@ const Projects = () => {
                 <p className="text-gray-600 dark:text-gray-300 mb-4">
                   {project.description}
                 </p>
+                {project.backendFeatures && (
+                  <ul className="mb-4 ml-4 list-disc text-gray-500 dark:text-gray-400 text-sm">
+                    {project.backendFeatures.map((feature, i) => (
+                      <li key={i}>{feature}</li>
+                    ))}
+                  </ul>
+                )}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tags.map((tag) => (
                     <span

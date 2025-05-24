@@ -7,20 +7,38 @@ const certificationsData = [
   {
     title: 'AWS Certified Solutions Architect – Associate',
     issuer: 'Amazon Web Services',
-    year: '2023',
+    year: '2025',
     link: 'https://aws.amazon.com/certification/certified-solutions-architect-associate/',
   },
   {
-    title: 'Google Professional Cloud Architect',
-    issuer: 'Google Cloud',
-    year: '2022',
-    link: 'https://cloud.google.com/certification/cloud-architect',
+    title: 'Salesforce Associate in AI',
+    issuer: 'Salesforce',
+    year: '2024',
+    link: 'https://www.salesforce.com/certification/salesforce-associate-in-ai/',
   },
   {
-    title: 'Certified Kubernetes Administrator (CKA)',
-    issuer: 'Cloud Native Computing Foundation',
-    year: '2021',
-    link: 'https://www.cncf.io/certification/cka/',
+    title: 'NPTEL Programmming in JAVA',
+    issuer: 'NPTEL',
+    year: '2024',
+    link: 'https://nptel.ac.in/courses/106/106/106106185/',
+  },
+  {
+    title: 'NPTEL Programmming in Operating System Fundamentals',
+    issuer: 'NPTEL',
+    year: '2024',
+    link: 'https://nptel.ac.in/courses/106/106/106106185/',
+  },
+  {
+    title: 'Linguaskill English Test',
+    issuer: 'Cambridge English',
+    year: '2024',
+    link: 'https://www.cambridgeenglish.org/test-your-english/linguaskill/',
+  },
+  {
+    title: 'Microsoft Certified: Azure Administrator Associate',
+    issuer: 'Microsoft',
+    year: '2024',
+    link: 'https://www.microsoft.com/en-us/learning/certification-overview.aspx',
   },
 ];
 

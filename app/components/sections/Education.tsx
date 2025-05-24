@@ -6,16 +6,24 @@ import { FaGraduationCap } from 'react-icons/fa';
 const educationData = [
   {
     degree: 'Bachelor of Technology in Computer Science',
-    institution: 'Indian Institute of Technology (IIT) Delhi',
-    year: '2017 - 2021',
-    details: 'Graduated with First Class Honors. Specialized in Full Stack Web Development and Artificial Intelligence.',
+    institution: 'Koneru Lakshmaiah Education Foundation , Vijayawada',
+    year: '2023 - 2027',
+    details: 'Specialized in Full Stack Web Development and Artificial Intelligence.',
   },
   {
     degree: 'Higher Secondary Certificate (HSC)',
-    institution: 'Delhi Public School, Delhi',
-    year: '2015 - 2017',
-    details: 'Major in Science (PCM). Scored 92% overall.',
+    institution: 'Baidnath high school laxmipur , bettiah',
+    year: '2020 - 2022',
+    details: 'Major in Science (PCM). Scored 81% overall.',
   },
+
+{
+  degree: 'Secondary School Certificate (SSC)',
+  institution: 'Notre Dame Public School, bettiah',
+  year: '2008 - 2020',
+  details: 'Major in Science (PCM). Scored 76% overall.',
+}
+
 ];
 
 const Education = () => {

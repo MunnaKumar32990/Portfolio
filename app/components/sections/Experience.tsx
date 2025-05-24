@@ -5,14 +5,14 @@ import { FaBriefcase } from 'react-icons/fa';
 
 const experienceData = [
   {
-    role: 'Web Developer & Co-Founder',
-    company: 'DestinEdge Tours (Startup)',
-    year: '2023 - Present',
-    details: [
-      'Co-founded and developed the architecture for an online travel agency.',
-      'Led the design and implementation of a scalable MERN-stack system.',
-      'Designed new user-centric features, increasing user engagement.',
-      'Collaborated with a team to enhance technical infrastructure.'
+    role: 'Social Intern',
+  company: 'K L E F Deemed to be University – Student Activity Center',
+  year: '2023 - 2024',
+  details: [
+    'Successfully completed the Social Internship Program focused on community service and social impact.',
+    'Demonstrated strong dedication, teamwork, and leadership in addressing social challenges.',
+    'Recognized for valuable contributions to society and unwavering commitment to social responsibility.',
+    'Awarded a certificate of excellence (UID: Y23SIC01625) for outstanding service.'
     ],
   },
   {
