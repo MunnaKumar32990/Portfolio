@@ -38,6 +38,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
+    const { onAnimationStart, onDragStart, onDragEnd, onDrag, ...rest } = props;
     return (
       <motion.button
         ref={ref}
@@ -50,7 +51,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           sizeClasses[size],
           className
         )}
-        {...props}
+        {...rest}
       >
         {children}
         <div className="absolute -inset-0.5 -z-10 rounded-lg bg-gradient-to-b from-[#ffffff1a] to-[#ffffff0d] opacity-0 blur transition duration-200 group-hover:opacity-100" />
