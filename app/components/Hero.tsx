@@ -15,7 +15,7 @@ export default function Hero() {
               transition={{ duration: 0.5 }}
               className="text-4xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl"
             >
-              <span className="block">Hi, I'm [Your Name]</span>
+              <span className="block">Hi, I'm [Munna Kumar]</span>
               <span className="mt-2 block bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent">
                 Full Stack Developer
               </span>

@@ -57,22 +57,31 @@ const Contact = () => {
   });
 
   const [copied, setCopied] = useState(false);
-  const emailRef = useRef(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus({ type: 'loading', message: 'Sending...' });
 
     try {
-      // Here you would typically send the form data to your backend
-      // For now, we'll just simulate a successful submission
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      
-      setStatus({
-        type: 'success',
-        message: 'Thank you for your message! I will get back to you soon.',
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-      setFormData({ name: '', email: '', message: '' });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setStatus({
+          type: 'success',
+          message: 'Thank you for your message! I will get back to you soon.',
+        });
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        throw new Error(data.error || 'Failed to send message');
+      }
     } catch (error) {
       setStatus({
         type: 'error',
@@ -91,13 +100,13 @@ const Contact = () => {
   };
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText('your.email@example.com');
+    navigator.clipboard.writeText('munnakushw7@gmail.com');
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   };
 
   return (
-    <section id="contact" className="py-20 bg-gray-50 dark:bg-gray-900">
+    <section id="contact" className="py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -105,23 +114,26 @@ const Contact = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Contact Me</h2>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-2">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            Get In Touch
+          </h2>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-4">
             <span className="inline-block bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100 px-4 py-1 rounded-full text-sm font-medium">
               <FaCheckCircle className="inline mr-1 mb-0.5" /> Available for freelance & collaborations
             </span>
           </div>
-          <p className="text-gray-600 dark:text-gray-300">
-            Let's work together! Send me a message or connect with me below.
+          <p className="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mx-auto">
+            Have a project in mind or want to collaborate? I'd love to hear from you. Send me a message and I'll get back to you as soon as possible.
           </p>
         </motion.div>
+
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
           {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg"
+            className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
@@ -138,7 +150,8 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent dark:bg-gray-800"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent dark:bg-gray-800 transition-colors duration-200"
+                  placeholder="Your name"
                 />
               </div>
 
@@ -156,7 +169,8 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent dark:bg-gray-800"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent dark:bg-gray-800 transition-colors duration-200"
+                  placeholder="your.email@example.com"
                 />
               </div>
 
@@ -174,7 +188,8 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   rows={4}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent dark:bg-gray-800"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent dark:bg-gray-800 transition-colors duration-200"
+                  placeholder="Your message here..."
                 />
               </div>
 
@@ -182,7 +197,7 @@ const Contact = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 type="submit"
-                className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-6 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-medium shadow-lg hover:shadow-xl disabled:opacity-70"
                 disabled={status.type === 'loading'}
               >
                 {status.type === 'loading' ? 'Sending...' : 'Send Message'}
@@ -194,9 +209,9 @@ const Contact = () => {
                   animate={{ opacity: 1, y: 0 }}
                   className={`text-center p-4 rounded-lg ${
                     status.type === 'success'
-                      ? 'bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100'
+                      ? 'bg-green-100 text-green-800 dark:bg-green-800/30 dark:text-green-200'
                       : status.type === 'error'
-                      ? 'bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100'
+                      ? 'bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-200'
                       : ''
                   }`}
                 >
@@ -205,65 +220,103 @@ const Contact = () => {
               )}
             </form>
           </motion.div>
+
           {/* Contact Info & Socials */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg flex flex-col gap-8 justify-center"
+            className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
           >
-            <div className="space-y-4">
-              {contactInfo.map((info, idx) => (
-                <div key={idx} className="flex items-center gap-4">
-                  {info.icon}
-                  {info.url ? (
-                    <a href={info.url} className="text-gray-700 dark:text-gray-200 hover:underline" target="_blank" rel="noopener noreferrer">{info.value}</a>
-                  ) : (
-                    <span className="text-gray-700 dark:text-gray-200">{info.value}</span>
-                  )}
-                  {info.label === 'Email' && (
-                    <button
-                      onClick={handleCopyEmail}
-                      type="button"
-                      className="ml-2 p-1 rounded hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors"
-                      aria-label="Copy Email"
+            <div className="space-y-6">
+              <div className="space-y-4">
+                {contactInfo.map((info, idx) => (
+                  <div key={idx} className="flex items-center gap-4 group">
+                    <div className="p-3 rounded-lg bg-gray-100 dark:bg-gray-700 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/30 transition-colors duration-300">
+                      {info.icon}
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-gray-900 dark:text-gray-100">{info.label}</h3>
+                      {info.url ? (
+                        <a 
+                          href={info.url}
+                          className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {info.value}
+                        </a>
+                      ) : (
+                        <span className="text-gray-600 dark:text-gray-300">{info.value}</span>
+                      )}
+                    </div>
+                    {info.label === 'Email' && (
+                      <button
+                        onClick={handleCopyEmail}
+                        type="button"
+                        className="ml-auto p-2 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
+                        aria-label="Copy Email"
+                      >
+                        {copied ? (
+                          <FaCheckCircle className="text-green-500 text-lg" />
+                        ) : (
+                          <FaRegCopy className="text-gray-500 dark:text-gray-400 text-lg" />
+                        )}
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+                <h3 className="font-medium text-gray-900 dark:text-gray-100 mb-4">Connect with me</h3>
+                <div className="flex gap-4">
+                  {socialLinks.map((link, idx) => (
+                    <a
+                      key={idx}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={link.label}
+                      className="p-3 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 hover:scale-110"
                     >
-                      {copied ? <FaCheckCircle className="text-green-500" /> : <FaRegCopy className="text-gray-500" />}
-                    </button>
-                  )}
+                      {link.icon}
+                    </a>
+                  ))}
                 </div>
-              ))}
-            </div>
-            <div className="flex gap-6 mt-6 justify-center">
-              {socialLinks.map((link, idx) => (
-                <a key={idx} href={link.url} target="_blank" rel="noopener noreferrer" aria-label={link.label} className="hover:scale-110 transition-transform">
-                  {link.icon}
-                </a>
-              ))}
-            </div>
-            {/* Map Embed Placeholder */}
-            <div className="mt-8">
-              <div className="w-full h-40 rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3627.019123456789!2d84.5160!3d26.8022!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39935c1b1b1b1b1b%3A0x1b1b1b1b1b1b1b1b!2sBettiah%2C%20Bihar%2C%20India!5e0!3m2!1sen!2sin!4v1681234567890!5m2!1sen!2sin"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Bettiah, Bihar, India Map"
-                ></iframe>
+              </div>
+
+              <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+                <h3 className="font-medium text-gray-900 dark:text-gray-100 mb-4">Location</h3>
+                <div className="w-full h-48 rounded-lg overflow-hidden">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d57143.97769436826!2d84.44661571979657!3d26.802199576084934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3993553420b78773%3A0x71129f699e524dd3!2sBettiah%2C%20Bihar!5e0!3m2!1sen!2sin!4v1709883545普及!5m2!1sen!2sin"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="rounded-lg"
+                    title="Bettiah, Bihar, India Map"
+                  ></iframe>
+                </div>
               </div>
             </div>
           </motion.div>
         </div>
-        {/* Let's Connect Callout */}
-        <div className="mt-16 text-center">
-          <div className="inline-block bg-blue-600 text-white px-8 py-4 rounded-xl shadow-lg text-xl font-semibold">
-            Let's Connect & Build Something Great Together!
+
+        {/* Call to Action */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="mt-16 text-center"
+        >
+          <div className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl shadow-lg text-xl font-semibold transform hover:scale-105 transition-all duration-300">
+            Let's Create Something Amazing Together!
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
