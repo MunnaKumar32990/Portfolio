@@ -2,18 +2,22 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { ExternalLink, Github, X, ArrowRight } from 'lucide-react';
-import { personalData } from '../utils/data';
+import { usePortfolioData } from '../contexts/PortfolioContext';
+import { personalData as fallbackData } from '../utils/data';
 
 const Projects = () => {
+  const { portfolio, loading } = usePortfolioData();
+  const personalData = portfolio || fallbackData;
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, threshold: 0.1 });
   const [selectedProject, setSelectedProject] = useState(null);
   const [filter, setFilter] = useState('All');
 
-  const allTags = ['All', ...new Set(personalData.projects.flatMap(project => project.tags))];
+  const projects = personalData.projects || [];
+  const allTags = ['All', ...new Set(projects.flatMap(project => project.tags || []))];
   const filteredProjects = filter === 'All' 
-    ? personalData.projects 
-    : personalData.projects.filter(project => project.tags.includes(filter));
+    ? projects 
+    : projects.filter(project => project.tags && project.tags.includes(filter));
 
   return (
     <section className="py-20 px-4 bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900" id="projects">

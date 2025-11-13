@@ -1,8 +1,11 @@
 import { motion } from 'framer-motion';
 import { Github, Mail, Phone, MapPin, Heart, Linkedin, Twitter, ArrowUp } from 'lucide-react';
-import { personalData } from '../utils/data';
+import { usePortfolioData } from '../contexts/PortfolioContext';
+import { personalData as fallbackData } from '../utils/data';
 
 const Footer = () => {
+  const { portfolio, loading } = usePortfolioData();
+  const personalData = portfolio || fallbackData;
   const currentYear = new Date().getFullYear();
   
   // Safely access social links with fallbacks

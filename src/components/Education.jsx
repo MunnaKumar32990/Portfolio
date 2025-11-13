@@ -2,14 +2,17 @@ import { motion } from "framer-motion";
 import { useRef } from "react";
 import { useInView } from "framer-motion";
 import { GraduationCap, Calendar, Award, BookOpen, Rocket, Lightbulb } from "lucide-react";
-import { personalData } from "../utils/data";
+import { usePortfolioData } from '../contexts/PortfolioContext';
+import { personalData as fallbackData } from "../utils/data";
 
 const Education = () => {
+  const { portfolio, loading } = usePortfolioData();
+  const personalData = portfolio || fallbackData;
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, threshold: 0.1 });
 
   // Use education data from personalData
-  const educationData = personalData.education;
+  const educationData = personalData.education || [];
 
   // Icons to rotate for each entry
   const educationIcons = [

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronDown, Download, Mail, Code, Terminal, Sparkles, Menu, X, Github, Linkedin, ExternalLink, Sun, Moon } from 'lucide-react';
-import { personalData } from '../utils/data';
+import { usePortfolioData } from '../contexts/PortfolioContext';
+import { personalData as fallbackData } from '../utils/data';
 
 // Mock data - replace with your actual data
 
@@ -30,10 +31,12 @@ const useTypewriter = (text, speed = 100, delay = 0) => {
 };
 
 const Hero = () => {
+  const { portfolio, loading } = usePortfolioData();
+  const personalData = portfolio || fallbackData;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const nameTypewriter = useTypewriter(`${personalData.name}`, 100);
-  const roleTypewriter = useTypewriter(`${personalData.role}`, 80, 1800);
-  const taglineTypewriter = useTypewriter(`${personalData.tagline}`, 40, 3500);
+  const nameTypewriter = useTypewriter(`${personalData.name || ''}`, 100);
+  const roleTypewriter = useTypewriter(`${personalData.role || ''}`, 80, 1800);
+  const taglineTypewriter = useTypewriter(`${personalData.tagline || ''}`, 40, 3500);
   
   // Navigation items
   const navItems = [

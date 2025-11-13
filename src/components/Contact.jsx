@@ -3,9 +3,12 @@ import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Send, CheckCircle, Mail, Phone, MapPin, Github, Linkedin, Twitter } from 'lucide-react';
-import { personalData } from '../utils/data';
+import { usePortfolioData } from '../contexts/PortfolioContext';
+import { personalData as fallbackData } from '../utils/data';
 
 const Contact = () => {
+  const { portfolio, loading } = usePortfolioData();
+  const personalData = portfolio || fallbackData;
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, threshold: 0.1 });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -20,12 +23,22 @@ const Contact = () => {
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    reset();
-    setTimeout(() => setIsSubmitted(false), 3000);
+    try {
+      const baseURL = import.meta.env.VITE_API_URL || '/api';
+      const res = await fetch(`${baseURL}/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (!res.ok) throw new Error('Failed to send');
+      setIsSubmitted(true);
+      reset();
+      setTimeout(() => setIsSubmitted(false), 4000);
+    } catch (e) {
+      alert('Failed to send message. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Safely access social links with fallbacks

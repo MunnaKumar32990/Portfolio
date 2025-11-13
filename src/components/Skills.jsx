@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { personalData } from "../utils/data";
+import { usePortfolioData } from '../contexts/PortfolioContext';
+import { personalData as fallbackData } from "../utils/data";
 
 // Category icons
 const categoryImages = {
@@ -84,14 +85,16 @@ const SkillCard = ({ skill, index, categoryDelay }) => (
 );
 
 const Skills = () => {
+  const { portfolio, loading } = usePortfolioData();
+  const personalData = portfolio || fallbackData;
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, threshold: 0.1 });
 
   // ✅ Extended backend + database categories
   const updatedSkills = {
-    ...personalData.skills,
+    ...(personalData.skills || {}),
     backend: [
-      ...(personalData.skills.backend || []),
+      ...(personalData.skills?.backend || []),
       { name: "SpringBoot" },
       { name: "Flask" }
     ],

@@ -1,3 +1,5 @@
+// Portfolio data for migration
+// This is a copy of the data from src/utils/data.js
 export const personalData = {
   initials:"M",
   name: "Munna Kumar",
@@ -37,7 +39,7 @@ innovative development teams.`,
       {
         year:"2025",
         title:"Infosys Springboard Virtual Internship 6.0",
-        description: "Artificial Intelligence Intern — Infosys Springboard (Aug 2025 – Oct 2025)Worked on the project “AI-Powered Regulatory Compliance Checker”, focusing on leveraging AI models to automate and streamline compliance verification processes.Gained hands-on experience in applying various machine learning and AI techniques, collaborating within a team environment, and managing end-to-end project development — from model selection to deployment and testing.Strengthened skills in AI integration, teamwork, and problem-solving through real-world project exposure.Selected for the Infosys Springboard Virtual Internship starting on 25th August 2025 in the AI domain. Looking forward to gaining hands-on experience in artificial intelligence, contributing to innovative projects, and enhancing my technical and problem-solving skills."
+        description: "Artificial Intelligence Intern — Infosys Springboard (Aug 2025 – Oct 2025)Worked on the project \"AI-Powered Regulatory Compliance Checker\", focusing on leveraging AI models to automate and streamline compliance verification processes.Gained hands-on experience in applying various machine learning and AI techniques, collaborating within a team environment, and managing end-to-end project development — from model selection to deployment and testing.Strengthened skills in AI integration, teamwork, and problem-solving through real-world project exposure.Selected for the Infosys Springboard Virtual Internship starting on 25th August 2025 in the AI domain. Looking forward to gaining hands-on experience in artificial intelligence, contributing to innovative projects, and enhancing my technical and problem-solving skills."
 
       },
        {
@@ -181,7 +183,7 @@ innovative development teams.`,
     category: "language"
   },
  
- 
+
 ],
 
 
@@ -230,3 +232,4 @@ innovative development teams.`,
     },
   ]
 };
+

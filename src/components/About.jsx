@@ -1,10 +1,13 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { personalData } from '../utils/data';
+import { usePortfolioData } from '../contexts/PortfolioContext';
+import { personalData as fallbackData } from '../utils/data';
 import { Globe, Mail, MapPin, Clock, Briefcase } from 'lucide-react';
 
 const About = () => {
+  const { portfolio, loading } = usePortfolioData();
+  const personalData = portfolio || fallbackData;
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, threshold: 0.3 });
 
@@ -113,7 +116,7 @@ const About = () => {
                     <h3 className="text-xl font-bold">About Me</h3>
                   </div>
                   <p className="leading-relaxed text-blue-100">
-                    {personalData.about.description}
+                    {personalData.about?.description || ''}
                   </p>
                 </div>
               </motion.div>
@@ -145,7 +148,7 @@ const About = () => {
                   <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-blue-200 dark:bg-blue-900/50"></div>
                   
                   <div className="space-y-10 ml-10">
-                    {personalData.about.timeline.map((item, index) => (
+                    {(personalData.about?.timeline || []).map((item, index) => (
                       <motion.div
                         key={index}
                         initial={{ opacity: 0, y: 20 }}

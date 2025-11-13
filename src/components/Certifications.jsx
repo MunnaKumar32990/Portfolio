@@ -2,9 +2,12 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { ExternalLink, Award, BadgeCheck, BookOpen, ShieldCheck, Star, ChevronRight } from 'lucide-react';
-import { personalData } from '../utils/data';
+import { usePortfolioData } from '../contexts/PortfolioContext';
+import { personalData as fallbackData } from '../utils/data';
 
 const Certifications = () => {
+  const { portfolio, loading } = usePortfolioData();
+  const personalData = portfolio || fallbackData;
   const ref = useRef(null);
   const containerRef = useRef(null);
   const isInView = useInView(ref, { once: true, threshold: 0.1 });
@@ -82,7 +85,7 @@ const Certifications = () => {
             ref={containerRef}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
-            {personalData.certifications.map((cert, index) => (
+            {(personalData.certifications || []).map((cert, index) => (
               <motion.div
                 key={cert.id}
                 initial={{ opacity: 0, y: 30, scale: 0.95 }}
